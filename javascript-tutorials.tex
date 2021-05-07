@@ -23,25 +23,25 @@ Search application using the debouncing programming technique.
 
 \section*{Create the project folder structure}
 
-First, create a new folder called $wikipedia-search$ that will store
+First, create a new folder called \verb|wikipedia-search| that will store
 the files of the projects.
 \newline
 
 \noindent
-Second, create three folders inside the $wikipedia-search$ folder called
-$js$, $css$, and $img$. These folders will store JavaScript, CSS, and
+Second, create three folders inside the \verb|wikipedia-search| folder called
+\verb|js|, \verb|css|, and \verb|img|. These folders will store JavaScript, CSS, and
 images files accordingly.
 \newline
 
 \noindent
-Third, create the $style.css$ in the $css$ folder and the $app.js$ in
-the $js$ Also, download the following image and copy it to the $img$
+Third, create the \verb|style.css| in the \verb|css| folder and the \verb|app.js| in
+the \verb|js| Also, download the following image and copy it to the \verb|img|
 folder. You'll use the logo to make the UI for the app.
 
 ![](uploads/2020/09/wikipedia-logo.png)
 
 \noindent
-Finally, create an $index.html$ file in the root folder.
+Finally, create an \verb|index.html| file in the root folder.
 \newline
 
 \noindent
@@ -51,7 +51,7 @@ The project tructure will look like the following:
 
 \section*{Build the HTML page}
 
-Open the index.html file and add the following code:
+Open the \verb|index.html| file and add the following code:
 
 \begin{lstlisting}
     <!DOCTYPE html>
@@ -76,12 +76,12 @@ Open the index.html file and add the following code:
 
 In this HTML file:
 
-* First, link to the $style.css$ file in the $<head>$ section.
-* Second, add a $<script>$ tag whose $src$ links to the $app.js$ file
-and place it right before the $</body>$ tag.
+* First, link to the \verb|style.css| file in the \verb|<head>| section.
+* Second, add a \verb|<script>| tag whose \verb|src| links to the \verb|app.js| file
+and place it right before the \verb|</body>| tag.
 * Third, add two sections to the body of the HTML page.
 The first section is the header that shows the Wikipedia logo, the
-heading, and the search box. The second section includes the $<main>$
+heading, and the search box. The second section includes the \verb|<main>|
 tag that will display the search result.
 
 \section*{Copy the CSS code}
@@ -92,8 +92,8 @@ you should see something like the [following page](https://www.javascripttutoria
 
 \section*{Handle input events}
 
-First, select the $<input>$ and search result elements using the
-$querySelector()$ method:
+First, select the \verb|<input>| and search result elements using the
+\verb|querySelector()| method:
 
 \begin{lstlisting}
     const searchTermElem = document.querySelector('#searchTerm');
@@ -101,15 +101,15 @@ $querySelector()$ method:
 \end{lstlisting}
 
 \noindent
-Second, set the focus on the $<input>$ element by calling the
-$focus()$ method:
+Second, set the focus on the \verb|<input>| element by calling the
+\verb|focus()| method:
 
 \begin{lstlisting}
     searchTermElem.focus();
 \end{lstlisting}
 
 \noindent
-Third, attach an $input$ event listener for the $<input>$ element:
+Third, attach an \verb|input| event listener for the \verb|<input>| element:
 
 \begin{lstlisting}
     searchTermElem.addEventListener('input', function (event) {
@@ -118,12 +118,12 @@ Third, attach an $input$ event listener for the $<input>$ element:
 \end{lstlisting}
 
 \noindent
-If you type some text on the $<input>$ element, you'll see that the
-$input$ event occurs, which shows the text to the Console.
+If you type some text on the \verb|<input>| element, you'll see that the
+\verb|input| event occurs, which shows the text to the Console.
 \newline
 
 \noindent
-For example, when you type the $debounce$ in the $<input>$ element:
+For example, when you type the \verb|debounce| in the \verb|<input>| element:
 
 ![](uploads/2020/09/JavaScript-Debounce-Function-Input-event.png)
 
@@ -153,12 +153,12 @@ to the following URL:
 \end{lstlisting}
 
 \noindent
-... and send an HTTP $GET$ request.
+... and send an HTTP \verb|GET| request.
 \newline
 
 \noindent
-For example, you can get the topics related to the $debounce$ keyword by
-sending an HTTP $GET$ request to the following URL:
+For example, you can get the topics related to the \verb|debounce| keyword by
+sending an HTTP \verb|GET| request to the following URL:
 
 \begin{lstlisting}
     https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=debounce
@@ -170,12 +170,12 @@ By the way, you can open the above URL in the web browser to see the response.
 
 \noindent
 From JavaScript, you can use the fetch API, which is available in all
-the modern web browsers, to send an HTTP $GET$ request.
+the modern web browsers, to send an HTTP \verb|GET| request.
 \newline
 
 \noindent
-The following creates the $search()$ function accepts a search term,
-makes an HTTP $GET$ request to Wikipedia, and shows the search results
+The following creates the \verb|search()| function accepts a search term,
+makes an HTTP \verb|GET| request to Wikipedia, and shows the search results
 to the Console:
 
 \begin{lstlisting}
@@ -202,7 +202,7 @@ How it works.
 \newline
 
 \noindent
-First, construct the API URL by adding the $srsearch$ query parameter
+First, construct the API URL by adding the \verb|srsearch| query parameter
 to the endpoint:
 
 \begin{lstlisting}
@@ -210,19 +210,19 @@ to the endpoint:
 \end{lstlisting}
 
 \noindent
-Second, use the $fetch()$ method to send a HTTP GET request. Since
-the $fetch()$ method returns a promise, you need to use $await$ keyword
+Second, use the \verb|fetch()| method to send a HTTP GET request. Since
+the \verb|fetch()| method returns a promise, you need to use \verb|await| keyword
 to wait for the response.
 \newline
 
 \noindent
-The promise returned by the $fetch()$ function has many methods,
-one of them is $json()$. The $json()$ method also returns another promise
+The promise returned by the \verb|fetch()| function has many methods,
+one of them is \verb|json()|. The \verb|json()| method also returns another promise
 that resolves to a result in JSON format.
 \newline
 
 \noindent
-Because of the await keyword, you need to mark the $search()$ function
+Because of the await keyword, you need to mark the \verb|search()| function
 as an async function like this:
 
 \begin{lstlisting}
@@ -232,13 +232,13 @@ as an async function like this:
 \end{lstlisting}
 
 \noindent
-The returned object of the $json()$ method has many properties.
+The returned object of the \verb|json()| method has many properties.
 And to get the search results, you need access
-the $searchResults.query.search$ property.
+the \verb|searchResults.query.search| property.
 \newline
 
 \noindent
-To test the $search()$ method, you call it in the $input$ event
+To test the \verb|search()| method, you call it in the \verb|input| event
 listener as follows:
 
 \begin{lstlisting}
@@ -248,7 +248,7 @@ listener as follows:
 \end{lstlisting}
 
 \noindent
-The following shows the complete $app.js$ file:
+The following shows the complete \verb|app.js| file:
 
 \begin{lstlisting}
     const searchTermElem = document.querySelector('#searchTerm');
@@ -279,12 +279,13 @@ The following shows the complete $app.js$ file:
 \end{lstlisting}
 
 \noindent
-Now, if you open the $index.html$ file and type the $debounce$ keyword in
+Now, if you open the \verb|index.html| file and type the \verb|debounce| keyword in
 the input element, you'll see the following results in the Console:
 
 ![](uploads/2020/09/JavaScript-Debounce-Function-too-many-requests.png)
 
-The output indicates that the $search()$ function executes for every
+\noindent
+The output indicates that the \verb|search()| function executes for every
 character you type. It calls the API for every text input,
 which isn't efficient.
 \newline
@@ -298,14 +299,14 @@ pause or stop typing for a period of time e.g., a half-second.
 \noindent
 To do so, you can use the \verb|setTimeout()| and \verb|clearTimeout()| function:
 
-* When users type a character, use the $setTimeout()$ function to schedule
-to execute the $search()$ function after a period of time.
-* If users keep typing, cancel that timer using the $clearTimeout()$ function.
+* When users type a character, use the \verb|setTimeout()| function to schedule
+to execute the \verb|search()| function after a period of time.
+* If users keep typing, cancel that timer using the \verb|clearTimeout()| function.
 In case the users pause or stop typing, let the timer to execute the
 scheduled function to search.
 
 \noindent
-The following shows the new version of the $search()$ function:
+The following shows the new version of the \verb|search()| function:
 
 \begin{lstlisting}
     let timeoutId;
@@ -335,27 +336,34 @@ The following shows the new version of the $search()$ function:
     };
 \end{lstlisting}
 
-Since the $await$ related code is moved to the callback function of
-the $setTimeout()$, you need to mark the callback with the $async$ keyword
-and remove the $async$ keyword from the $search()$ function.
+\noindent
+Since the \verb|await| related code is moved to the callback function of
+the \verb|setTimeout()|, you need to mark the callback with the \verb|async| keyword
+and remove the \verb|async| keyword from the \verb|search()| function.
+\newline
 
-If you open the $index.html$ file in the web browser and type the keyword
+\noindent
+If you open the \verb|index.html| file in the web browser and type the keyword
 debounce without pausing (for a half-second) and stop, you'll see
 that the application will make only one API request.
+\newline
 
-And this technique is known as **debouncing**.
+\noindent
+And this technique is known as \textbf{debouncing}.
 
 \section*{What is debouncing}
 
 If you have a time-consuming task like an API request that fires often,
 it'll impact application performance.
+\newline
 
+\noindent
 \textbf{Debouncing} is a programming technique that limits the number of
 times a function gets called.
 
 \section*{Develop a reusable debounce function}
 
-The \verb|debounce()| function needs to accept a function ($fn$), limits the
+The \verb|debounce()| function needs to accept a function (\verb|fn|), limits the
 number of calls to it, and returns a function:
 
 \begin{lstlisting}
@@ -367,7 +375,8 @@ number of calls to it, and returns a function:
     };
 \end{lstlisting}
 
-The following uses the $clearTimeout()$ and $setTimeout()$ functions
+\noindent
+The following uses the \verb|clearTimeout()| and \verb|setTimeout()| functions
 to debounce the fn function:
 
 \begin{lstlisting}
@@ -387,9 +396,10 @@ to debounce the fn function:
     };
 \end{lstlisting}
 
-Typically, the $fn$ function will accept more than one argument.
-To invoke the $fn$ function with a list of arguments,
-you use the $apply()$ method:
+\noindent
+Typically, the \verb|fn| function will accept more than one argument.
+To invoke the \verb|fn| function with a list of arguments,
+you use the \verb|apply()| method:
 
 \begin{lstlisting}
     const debounce = (fn, delay=500) => {
@@ -408,21 +418,22 @@ you use the $apply()$ method:
     };
 \end{lstlisting}
 
+\noindent
 How it works:
 
-* First, replace the hardcoded number $500$ with the $delay$ argument so
-that you can specify the amount of time to wait before executing the $fn$
+* First, replace the hardcoded number \verb|500| with the \verb|delay| argument so
+that you can specify the amount of time to wait before executing the \verb|fn|
 function. The default value of the delay is 500 ms.
-* Second, add the $...args$ to the returned function. The $...arg$
+* Second, add the \verb|...args| to the returned function. The \verb|...arg|
 is a rest parameter that allows you to collect all the arguments
-of the $fn()$ function into an array $args$.
-* Third, the $fn.apply(null, args)$ executes the $fn()$ function with
-the arguments specified in the $args$ array.
+of the \verb|fn()| function into an array \verb|args|.
+* Third, the \verb|fn.apply(null, args)| executes the \verb|fn()| function with
+the arguments specified in the \verb|args| array.
 
 \section*{Use the debounce function}
 
-The following removes the debouncing logic from the $search()$ function
-and use the $debounce()$ function instead:
+The following removes the debouncing logic from the \verb|search()| function
+and use the \verb|debounce()| function instead:
 
 \begin{lstlisting}
     const search = debounce(async (searchTerm) => {
@@ -449,10 +460,12 @@ Before doing it, we'll need some utility functions:
 
 \section*{Strip HTML tags}
 
-The $title$ and $snippet$ from the search result of the API call may
+The \verb|title| and \verb|snippet| from the search result of the API call may
 contain HTML tags. And it's safe to strip all HTML tags
 before rendering them.
+\newline
 
+\noindent
 The following utility function strips the HTML tags from a string:
 
 \begin{lstlisting}
@@ -463,20 +476,24 @@ The following utility function strips the HTML tags from a string:
     };
 \end{lstlisting}
 
-The $stripHtml()$ function accepts an HTML string. It creates a
-temporary $<div>$ element, assign its $innerHTML$ the HTML string,
-and return its $textContent$ property.
+The \verb|stripHtml()| function accepts an HTML string. It creates a
+temporary \verb|<div>| element, assign its \verb|innerHTML| the HTML string,
+and return its \verb|textContent| property.
 
-> Note that this function will only work on web browsers because it
+\begin{displayquote}
+Note that this function will only work on web browsers because it
 relies on the web browser's DOM API.
+\end{displayquote}
 
 \section*{Highlight the search term}
 
 It's more intuitive if the search terms are highlighted in the search result.
+\newline
 
-This $highlight()$ function highlights all the occurrences of the
-$keyword$ in the $str$ by wrapping each occurrence of the keyword in
-a $<span>$ tag with the $highlight$ class:
+\noindent
+This \verb|highlight()| function highlights all the occurrences of the
+\verb|keyword| in the \verb|str| by wrapping each occurrence of the keyword in
+a \verb|<span>| tag with the \verb|highlight| class:
 
 \begin{lstlisting}
     const highlight = (str, keyword, className = "highlight") => {
@@ -485,12 +502,13 @@ a $<span>$ tag with the $highlight$ class:
     };
 \end{lstlisting}
 
+\noindent
 Note that the function uses the regular expression to replace all
-occurrences of the keyword by the $<span>$ element.
+occurrences of the keyword by the \verb|<span>| element.
 
 \section*{Convert the search results to HTML}
 
-The following $generateSearchResultHTML()$ function converts the search
+The following \verb|generateSearchResultHTML()| function converts the search
 results to HTML:
 
 \begin{lstlisting}
@@ -511,18 +529,19 @@ results to HTML:
     }
 \end{lstlisting}
 
+\noindent
 How it works.
 
-* First, use the $map()$ method to return the HTML representation of each
-search result and the $join()$ method to join search results
+* First, use the \verb|map()| method to return the HTML representation of each
+search result and the \verb|join()| method to join search results
 (in HTML format) into a single HTML string.
 * Second, strip the HTML tags and highlight the search term in
-the $title$ and $snippet$ returned from the API call.
+the \verb|title| and \verb|snippet| returned from the API call.
 
 \section*{Show the search results}
 
-Change the $search()$ method that uses the $generateSearchResultHTML()$
-function and append its result to the $searchResultElem$.
+Change the \verb|search()| method that uses the \verb|generateSearchResultHTML()|
+function and append its result to the \verb|searchResultElem|.
 Also, reset the search result if the search term is empty:
 
 \begin{lstlisting}
@@ -553,6 +572,7 @@ Also, reset the search result if the search term is empty:
     });
 \end{lstlisting}
 
+\noindent
 Now, if you open the index.html in the web browser, you'll see the
 working application.
 
@@ -560,30 +580,36 @@ working application.
 
 In this tutorial, you've learned the following key points:
 
-* Use the $fetch()$ API to make HTTP $GET$ requests.
-* Use the $async/await$ keywords to make the asynchronous code
+* Use the \verb|fetch()| API to make HTTP \verb|GET| requests.
+* Use the \verb|async/await| keywords to make the asynchronous code
 looks cleaner.
 * Understand the debouncing programming technique and develop a
-reusable JavaScript $debounce()$ function.
+reusable JavaScript \verb|debounce()| function.
 
 {\huge JavaScript insertAfter}
 
-> **Summary:** in this tutorial, you will learn how to insert a
+\begin{displayquote}
+\textbf{Summary}: in this tutorial, you will learn how to insert a
 new node after an existing node as a child node of a parent node.
+\end{displayquote}
 
-JavaScript DOM provides the $insertBefore()$ method that allows
+\noindent
+JavaScript DOM provides the \verb|insertBefore()| method that allows
 you to insert a new after an existing node as a child node.
-However, it hasn't supported the $insertAfter()$ method yet.
+However, it hasn't supported the \verb|insertAfter()| method yet.
+\newline
 
+\noindent
 To insert a new node after an existing node as a child node,
 you can use the following approach:
 
 * First, select the next sibling node of the existing node.
 * Then, select the parent node of the existing node and call
-the $insertBefore()$ method on the parent node to insert a new node
+the \verb|insertBefore()| method on the parent node to insert a new node
 before that immediate sibling node.
 
-The following $insertAfter()$ function illustrates the logic:
+\noindent
+The following \verb|insertAfter()| function illustrates the logic:
 
 \begin{lstlisting}
     function insertAfter(newNode, existingNode) {
@@ -591,6 +617,7 @@ The following $insertAfter()$ function illustrates the logic:
     }
 \end{lstlisting}
 
+\noindent
 Suppose that you have the following list of items:
 
 \begin{lstlisting}
@@ -601,6 +628,7 @@ Suppose that you have the following list of items:
     </ul>
 \end{lstlisting}
 
+\noindent
 The following snippet inserts a new node after the first list item:
 
 \begin{lstlisting}
@@ -613,12 +641,13 @@ The following snippet inserts a new node after the first list item:
     menu.insertBefore(li, menu.firstElementChild.nextSibling);
 \end{lstlisting}
 
+\noindent
 How it works:
 
-* First, select the $ul$ element by its id ($menu$) using
-the $getElementById()$ method.
-* Second, create a new list item using the $createElement()$ method.
-* Third, use the $insertBefore()$ method to insert the list item element
+* First, select the \verb|ul| element by its id (\verb|menu|) using
+the \verb|getElementById()| method.
+* Second, create a new list item using the \verb|createElement()| method.
+* Third, use the \verb|insertBefore()| method to insert the list item element
 before the next sibling of the first list item element.
 
 Put it all together.
@@ -654,14 +683,16 @@ Put it all together.
 
 \section*{Summary}
 
-* JavaScript DOM hasn't supported the $insertAfter()$ method yet.
-* Use the $insertBefore()$ method and the $nextSibling$ property
+* JavaScript DOM hasn't supported the \verb|insertAfter()| method yet.
+* Use the \verb|insertBefore()| method and the \verb|nextSibling| property
 to insert a new before an existing node as a child of a parent node.
 
 {\huge JavaScript Infinite Scroll}
 
-> **Summary:** in this tutorial, you'll learn how to implement the
+\begin{displayquote}
+\textbf{Summary}: in this tutorial, you'll learn how to implement the
 JavaScript infinite scroll feature.
+\end{displayquote}
 
 \section*{What you're going to build}
 
@@ -670,45 +701,60 @@ you're going to build:
 
 ![](uploads/2020/09/JavaScript-Infinite-Scroll-Example.png)
 
+\noindent
 The page will display a list of quotes that come from an API.
 By default, it shows 10 quotes.
+\newline
 
+\noindent
 If you scroll down to the bottom of the page, the web application will
 display a loading indicator. In addition, it'll call the API to fetch
 more quotes and append them to the current list.
+\newline
 
+\noindent
 The URL of the API that you're going to use is as follows:
 
 \begin{lstlisting}
     https://api.javascripttutorial.net/v1/quotes/?page=1&limit=10
 \end{lstlisting}
 
-The API accepts two query strings: $page$ and $limit$. These query
+\noindent
+The API accepts two query strings: \verb|page| and \verb|limit|. These query
 strings allow you to paginate the quotes from the server.
+\newline
 
-The quotes are divided into the pages determined by the $page$ query string.
-And each page has a number of quotes specified by the $limit$ parameter.
+\noindent
+The quotes are divided into the pages determined by the \verb|page| query string.
+And each page has a number of quotes specified by the \verb|limit| parameter.
 
 ![](uploads/2020/09/JavaScript-Infinite-Scroll-API.png)
 
+\noindent
 [Click here to see the final web application that uses the JavaScript infinite scroll feature.](https://www.javascripttutorial.net/sample/dom/infinite-scroll/)
 
 \section*{Create a project structure}
 
-First, create a new folder called $infinite-scroll$. Inside that folder,
-create two subfolders $css$ and $js$.
+First, create a new folder called \verb|infinite-scroll|. Inside that folder,
+create two subfolders \verb|css| and \verb|js|.
+\newline
 
-Second, create the $style.css$ in the css folder and $app.js$ in the js folder.
+\noindent
+Second, create the \verb|style.css| in the css folder and \verb|app.js| in the js folder.
+\newline
 
-Third, create a new HTML file $index.html$ in the $infinite-scroll$ folder.
+\noindent
+Third, create a new HTML file \verb|index.html| in the \verb|infinite-scroll| folder.
+\newline
 
+\noindent
 The final project folder structure will look like this:
 
 ![](uploads/2020/09/JavaScript-Infinite-Scroll-Project-Structure.png)
 
 \section*{Add code to the index.html file}
 
-Open the $index.html$ and add the following code to it:
+Open the \verb|index.html| and add the following code to it:
 
 \begin{lstlisting}
     <!DOCTYPE html>
@@ -738,31 +784,34 @@ Open the $index.html$ and add the following code to it:
     </html>
 \end{lstlisting}
 
-In the $index.html$ file, place the $style.css$ in the head section
-and $app.js$ in the body section.
+\noindent
+In the \verb|index.html| file, place the \verb|style.css| in the head section
+and \verb|app.js| in the body section.
+\newline
 
-The body section has a $div$ with the class name $container$.
+\noindent
+The body section has a \verb|div| with the class name \verb|container|.
 The container element has four child elements:
 
 * A heading one (h1) that shows the page heading.
-* A $div$ with the class $quotes$ that will be the parent element of
+* A \verb|div| with the class \verb|quotes| that will be the parent element of
 all the quotes.
 * A loader that displays the loading indicator. By default,
 the loading indicator is invisible.
 
 \section*{Making the app.js}
 
-The following uses the $querySelector()$ to select the div with
-class $quotes$ and the $loader$.
+The following uses the \verb|querySelector()| to select the div with
+class \verb|quotes| and the \verb|loader|.
 
 \begin{lstlisting}
     const quotesEl = document.querySelector('.quotes');
     const loader = document.querySelector('.loader');
 \end{lstlisting}
 
-\section*{The $getQuotes()$ function}
+\section*{The getQuotes() function}
 
-The following $getQuotes()$ function calls the API and return the quotes:
+The following \verb|getQuotes()| function calls the API and return the quotes:
 
 \begin{lstlisting}
     const getQuotes = async (page, limit) => {
@@ -776,23 +825,30 @@ The following $getQuotes()$ function calls the API and return the quotes:
     }
 \end{lstlisting}
 
-The $getQuotes()$ function accepts two arguments: $page$ and $limit$.
+\noindent
+The \verb|getQuotes()| function accepts two arguments: \verb|page| and \verb|limit|.
 It uses the Fetch API to fetch data from the API.
+\newline
 
-Since the $fetch()$ returns a promise, you can use the $await$ syntax
-to get the response. And you call the $json()$ method of the response
+\noindent
+Since the \verb|fetch()| returns a promise, you can use the \verb|await| syntax
+to get the response. And you call the \verb|json()| method of the response
 object to get the json data.
+\newline
 
-The $getQuotes()$ returns a promise that will resolve to the JSON data.
+\noindent
+The \verb|getQuotes()| returns a promise that will resolve to the JSON data.
+\newline
 
-Since the $getQuotes()$ function use the $await$ keyword, it has to be
-an $async$ function.
+\noindent
+Since the \verb|getQuotes()| function use the \verb|await| keyword, it has to be
+an \verb|async| function.
 
-\section*{The $showQuotes()$ function}
+\section*{The showQuotes() function}
 
-The following defines the $showQuotes()$ function that generates
-the $<blockquote>$ elements from the $quotes$ array and appends them
-to the $quotes$ element:
+The following defines the \verb|showQuotes()| function that generates
+the \verb|<blockquote>| elements from the \verb|quotes| array and appends them
+to the \verb|quotes| element:
 
 \begin{lstlisting}
     // show the quotes
@@ -812,23 +868,31 @@ to the $quotes$ element:
     };
 \end{lstlisting}
 
+\noindent
 How it works:
+\newline
 
-The $showQuotes()$ uses the $forEach()$ method to iterate over
-the $quotes$ array.
+\noindent
+The \verb|showQuotes()| uses the \verb|forEach()| method to iterate over
+the \verb|quotes| array.
+\newline
 
-For each quote object, it creates the $<blockquote>$ element with
-the $quote$ class:
+\noindent
+For each quote object, it creates the \verb|<blockquote>| element with
+the \verb|quote| class:
 
 \begin{lstlisting}
     <blockquote class="quote">
     </blockquote>
 \end{lstlisting}
 
+\noindent
 And it generates the HTML representation of a quote object using
-the template literal syntax. It adds the HTML to the $<blockquote>$ element.
+the template literal syntax. It adds the HTML to the \verb|<blockquote>| element.
+\newline
 
-The following shows an example of the generated $<blockquote>$ element:
+\noindent
+The following shows an example of the generated \verb|<blockquote>| element:
 
 \begin{lstlisting}
     <blockquote class="quote">
@@ -838,9 +902,10 @@ The following shows an example of the generated $<blockquote>$ element:
     </blockquote>
 \end{lstlisting}
 
-At the end of each iteration, the function appends the $<blockquote>$
-element to the child elements of the $quotesEl$ element by
-using the $appendChild()$ method.
+\noindent
+At the end of each iteration, the function appends the \verb|<blockquote>|
+element to the child elements of the \verb|quotesEl| element by
+using the \verb|appendChild()| method.
 
 \section*{Show/hide loading indicator functions}
 
@@ -856,13 +921,16 @@ The following defines two functions that show and hide the loading indicator ele
     };
 \end{lstlisting}
 
+\noindent
 The loading indicator has the opacity 0, which is invisible by default.
-The $.show$ class sets the opacity of the loading indicator to 1
+The \verb|.show| class sets the opacity of the loading indicator to 1
 that will make it visible.
+\newline
 
-To hide the loading indicator, you remove the $show$ class from the
+\noindent
+To hide the loading indicator, you remove the \verb|show| class from the
 loading indicator element. Similarly, to show the loading indicator,
-you add the $show$ class to its class list.
+you add the \verb|show| class to its class list.
 
 \section*{Define control variables}
 
@@ -872,10 +940,13 @@ The following declares the currentPage variable and initialize it to one:
     let currentPage = 1;
 \end{lstlisting}
 
+\noindent
 When you scroll down to the end of the page, the application will make
 an API request to get the next quotes. Before doing so, you need to
-increase the $currentPage$ variable by one.
+increase the \verb|currentPage| variable by one.
+\newline
 
+\noindent
 To specify the number of quotes that you want to fetch at a time,
 you can use a constant like this:
 
@@ -883,7 +954,8 @@ you can use a constant like this:
     const limit = 10;
 \end{lstlisting}
 
-The following $total$ variable stores the total of quotes
+\noindent
+The following \verb|total| variable stores the total of quotes
 returned from the API:
 
 \begin{lstlisting}
@@ -892,10 +964,10 @@ returned from the API:
 
 \section*{The hasMoreQuotes() function}
 
-The following $hasMoreQuotes()$ function returns $true$ if:
+The following \verb|hasMoreQuotes()| function returns \verb|true| if:
 
-* It's the first fetch ($total === 0$)
-* Or there are more quotes to fetch from the API ($startIndex < total$)
+* It's the first fetch (\verb|total === 0|)
+* Or there are more quotes to fetch from the API (\verb|startIndex < total|)
 
 \begin{lstlisting}
     const hasMoreQuotes = (page, limit, total) => {
@@ -909,7 +981,7 @@ The following $hasMoreQuotes()$ function returns $true$ if:
 The following defines a function that performs four actions:
 
 * Show the loading indicator.
-* Get the quotes from the API by calling the $getQuotes()$ function
+* Get the quotes from the API by calling the \verb|getQuotes()| function
 if there are more quotes to fetch.
 * Show the quotes on the page.
 * Hide the loading indicator.
@@ -937,11 +1009,13 @@ if there are more quotes to fetch.
     };
 \end{lstlisting}
 
-If the $getQuotes()$ function executes very fast,
+If the \verb|getQuotes()| function executes very fast,
 you won't see the loading indicator.
+\newline
 
+\noindent
 To make sure that the loading indicator always showing,
-you can use the $setTimeout()$ function:
+you can use the \verb|setTimeout()| function:
 
 \begin{lstlisting}
     // load quotes
@@ -972,22 +1046,25 @@ you can use the $setTimeout()$ function:
     };
 \end{lstlisting}
 
-By adding the $setTimeout()$ function, the loading indicator will
+\noindent
+By adding the \verb|setTimeout()| function, the loading indicator will
 show for at least a half-second. And you can tweak the delay by
-changing the second argument of the $setTimeout()$ function.
+changing the second argument of the \verb|setTimeout()| function.
 
 \section*{Attach the scroll event}
 
 To load more quotes when users scroll to the bottom of the page,
 you need to attach a scroll event handler.
+\newline
 
-The scroll event handler will call the $loadQuotes()$ function
+\noindent
+The scroll event handler will call the \verb|loadQuotes()| function
 if the following conditions are met:
 
 * First, the scroll position is at the bottom of the page.
 * Second, there are more quotes to fetch.
 
-The scroll event handler will also increase the $currentPage$
+The scroll event handler will also increase the \verb|currentPage|
 variable before loading the next quotes.
 
 \begin{lstlisting}
@@ -1011,18 +1088,20 @@ variable before loading the next quotes.
 \section*{Initialize the page}
 
 When the page loads for the first time, you need to call the
-$loadQuotes()$ function to load the first batch of quotes:
+\verb|loadQuotes()| function to load the first batch of quotes:
 
 \begin{lstlisting}
     loadQuotes(currentPage, limit);
 \end{lstlisting}
 
-\section*{Wrap $app.js$ code in an $IIFE$}
+\section*{Wrap app.js code in an IIFE}
 
 To avoid the conflict of variables and functions that you have defined,
-you can wrap the whole code in the $app.js$ file in an IIFE.
+you can wrap the whole code in the \verb|app.js| file in an IIFE.
+\newline
 
-The final $app.js$ will look like this:
+\noindent
+The final \verb|app.js| will look like this:
 
 \begin{lstlisting}
     (function () {
@@ -1125,6 +1204,7 @@ The final $app.js$ will look like this:
     })();
 \end{lstlisting}
 
+\noindent
 Here is the final version of [the web application](https://www.javascripttutorial.net/sample/dom/infinite-scroll/).
 
 \end{document}
