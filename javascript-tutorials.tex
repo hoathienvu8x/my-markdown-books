@@ -1,10 +1,11 @@
 \documentclass[11pt]{article}
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
-\usepackage{listings}
-\usepackage{csquotes}
 \usepackage{hyperref}
-
+\usepackage{listings}
+\usepackage{graphicx}
+% \usepackage{csquotes}
+\graphicspath{ {./ilatex/} }
 
 \hypersetup{
     colorlinks=true,
@@ -14,23 +15,50 @@
     pdfpagemode=FullScreen,
 }
 
-\usepackage{graphicx}
-\graphicspath{ {./images/} }
-
 \usepackage[x11names]{xcolor}
 \usepackage{framed}
 \usepackage{quoting}
 \colorlet{shadecolor}{LavenderBlush2}
+\definecolor{qcolor}{RGB}{246,246,246}
 % https://tex.stackexchange.com/a/435632
-\newenvironment{shadedquotation}
-{\begin{shaded*}
+\newenvironment{displayquote} % https://latex.org/forum/viewtopic.php?t=20207
+{\begin{shaded*}\noindent
 \quoting[leftmargin=0pt, vskip=0pt]
 }
  {\endquoting
  \end{shaded*}
 }
+% https://tex.stackexchange.com/a/89576
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+% https://stackoverflow.com/a/62946677 
+\lstset{
+	tabsize = 2, 
+	showstringspaces = false,
+	breaklines = true, 
+	numbers = none,
+	%numberstyle = \tiny, 
+	basicstyle = \small \ttfamily, 
+	keywordstyle = \color{blue}, 
+	stringstyle = \color{red}, 
+	commentstyle = \color{green}, 
+	rulecolor = \color{black},
+	backgroundcolor = \color{qcolor}
+}
 
-\title{\textbf{Javascript Tutorials}}
+\title{\textbf{\huge Javascript Tutorials}}
 \author{Hoa Thien Vu}
 \date{\today}
 \begin{document}
@@ -40,14 +68,14 @@
 \tableofcontents
 \cleardoublepage
 \newpage
-\noindent
+
 \addcontentsline{toc}{section}{\huge The Wikipedia Search App}
 \section*{\huge Learn JavaScript Debounce Function By Building the Wikipedia Search App}
 
-\begin{shadedquotation}
+\begin{displayquote}
 \textbf{Summary}: in this tutorial, you'll learn about JavaScript debounce 
 function and how to use it to improve application performance.
-\end{shadedquotation}
+\end{displayquote}
 
 \noindent
 To understand the debounce function, you're going to build a Wikipedia
@@ -70,11 +98,13 @@ images files accordingly.
 Third, create the \verb|style.css| in the \verb|css| folder and the \verb|app.js| in
 the \verb|js| Also, download the following image and copy it to the \verb|img|
 folder. You'll use the logo to make the UI for the app.
-% \begin{figure}[h]
-% \centering
-% \includegraphics[width=\textwidth]{wikipedia-logo.png}
-% \end{figure}
-![](uploads/2020/09/wikipedia-logo.png)
+\newline
+
+\begin{figure}[h]
+\centering
+\includegraphics{wikipedia-logo}
+\end{figure}
+\newpage
 
 \noindent
 Finally, create an \verb|index.html| file in the root folder.
@@ -82,36 +112,38 @@ Finally, create an \verb|index.html| file in the root folder.
 
 \noindent
 The project tructure will look like the following:
+\newline
 
-![](uploads/2020/09/JavaScript-Debounce-Function-Project-Structure.png)
-
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{JavaScript-Debounce-Function-Project-Structure}
+\end{figure}
 \addcontentsline{toc}{section}{Build the HTML page}
 \section*{Build the HTML page}
-
+\newpage
 Open the \verb|index.html| file and add the following code:
-% https://tex.stackexchange.com/questions/176966/put-a-grey-background-behind-code-extracts-in-a-latex-document-like-this-site-d
-\begin{lstlisting}[backgroundcolor = \color{lightgray},
-language = HTML,
-xleftmargin = 0cm,
-framexleftmargin = 0em]
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Wikipedia Search</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <header>
-            <img src="./img/wikipedia-logo.png" alt="wikipedia">
-            <h1>Wikipedia Search</h1>
-            <input type="text" name="searchTerm" id="searchTerm" placeholder="Enter a search term...">
-        </header>
-        <main id="searchResult"></main>
-        <script src="js/app.js"></script>
-    </body>
-    </html>
+
+\begin{lstlisting}[language=HTML]
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Wikipedia Search</title>
+     <link rel="stylesheet" href="css/style.css">
+ </head>
+ <body>
+     <header>
+         <img src="./img/wikipedia-logo.png" alt="wikipedia">
+         <h1>Wikipedia Search</h1>
+         <input type="text" name="searchTerm" id="searchTerm" placeholder="Enter a search term...">
+     </header>
+     <main id="searchResult"></main>
+     <script src="js/app.js"></script>
+ </body>
+ </html>
+ 
 \end{lstlisting}
 
 In this HTML file:
@@ -130,7 +162,7 @@ tag that will display the search result.
 \section*{Copy the CSS code}
 
 Navigate to the \href{https://www.javascripttutorial.net/sample/dom/wikipedia-search/css/style.css}{style.css} file, copy its code, and paste it into the
-style.css file in the css folder. When you open the index.html file,
+\verb|style.css| file in the \verb|css| folder. When you open the \verb|index.html| file,
 you should see something like the \href{https://www.javascripttutorial.net/sample/dom/wikipedia-search/}{following page}.
 
 \addcontentsline{toc}{section}{Handle input events}
@@ -139,9 +171,11 @@ you should see something like the \href{https://www.javascripttutorial.net/sampl
 First, select the \verb|<input>| and search result elements using the
 \verb|querySelector()| method:
 
-\begin{lstlisting}
-    const searchTermElem = document.querySelector('#searchTerm');
-    const searchResultElem = document.querySelector('#searchResult');
+\begin{lstlisting}[language=JavaScript]
+
+ const searchTermElem = document.querySelector('#searchTerm');
+ const searchResultElem = document.querySelector('#searchResult');
+ 
 \end{lstlisting}
 
 \noindent
@@ -149,32 +183,43 @@ Second, set the focus on the \verb|<input>| element by calling the
 \verb|focus()| method:
 
 \begin{lstlisting}
-    searchTermElem.focus();
+
+ searchTermElem.focus();
+ 
 \end{lstlisting}
 
 \noindent
 Third, attach an \verb|input| event listener for the \verb|<input>| element:
 
-\begin{lstlisting}
-    searchTermElem.addEventListener('input', function (event) {
-        console.log(event.target.value);
-    });
+\begin{lstlisting}[language=JavaScript]
+
+ searchTermElem.addEventListener('input', function (event) {
+     console.log(event.target.value);
+ });
+ 
 \end{lstlisting}
 
 \noindent
 If you type some text on the \verb|<input>| element, you'll see that the
 \verb|input| event occurs, which shows the text to the Console.
-\newline
 
 \noindent
 For example, when you type the \verb|debounce| in the \verb|<input>| element:
+\newline
 
-![](uploads/2020/09/JavaScript-Debounce-Function-Input-event.png)
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{JavaScript-Debounce-Function-Input-event}
+\end{figure}
 
+\newpage
 \noindent
 ... you'll see the following texts in the Console:
 
-![](uploads/2020/09/JavaScript-Debounce-Function-Input-event-console.png)
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{JavaScript-Debounce-Function-Input-event-console}
+\end{figure}
 
 \addcontentsline{toc}{section}{Fetch search results using Wikipedia API}
 \section*{Fetch search results using Wikipedia API}
@@ -187,14 +232,18 @@ To get the topics by a search term, you need to append the $srsearch$
 query parameter:
 
 \begin{lstlisting}
-    &srsearch=<searchTerm>
+
+ &srsearch=<searchTerm>
+ 
 \end{lstlisting}
 
 \noindent
 to the following URL:
 
 \begin{lstlisting}
-    https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10
+
+ https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10
+
 \end{lstlisting}
 
 \noindent
@@ -206,7 +255,9 @@ For example, you can get the topics related to the \verb|debounce| keyword by
 sending an HTTP \verb|GET| request to the following URL:
 
 \begin{lstlisting}
-    https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=debounce
+
+ https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=debounce
+ 
 \end{lstlisting}
 
 \noindent
@@ -223,23 +274,25 @@ The following creates the \verb|search()| function accepts a search term,
 makes an HTTP \verb|GET| request to Wikipedia, and shows the search results
 to the Console:
 
-\begin{lstlisting}
-    const search = async (searchTerm) => {
-        try {
-            const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
-            const response = await fetch(url);
-            const searchResults = await response.json();
+\begin{lstlisting}[language=JavaScript]
 
-            // show the search result in the console
-            console.log({
-                'term': searchTerm,
-                'results': searchResults.query.search
-            });
+ const search = async (searchTerm) => {
+     try {
+         const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
+         const response = await fetch(url);
+         const searchResults = await response.json();
+ 
+         // show the search result in the console
+         console.log({
+             'term': searchTerm,
+             'results': searchResults.query.search
+         });
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+     } catch (error) {
+         console.log(error);
+     }
+ }
+ 
 \end{lstlisting}
 
 \noindent
@@ -250,8 +303,8 @@ How it works.
 First, construct the API URL by adding the \verb|srsearch| query parameter
 to the endpoint:
 
-\begin{lstlisting}
-    const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
+\begin{lstlisting}[language=JavaScript]
+const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
 \end{lstlisting}
 
 \noindent
@@ -270,10 +323,10 @@ that resolves to a result in JSON format.
 Because of the await keyword, you need to mark the \verb|search()| function
 as an async function like this:
 
-\begin{lstlisting}
-    const search = async (searchTerm) = {
-       /// ...
-    };
+\begin{lstlisting}[language=JavaScript]
+const search = async (searchTerm) = {
+   /// ...
+};
 \end{lstlisting}
 
 \noindent
@@ -286,7 +339,7 @@ the \verb|searchResults.query.search| property.
 To test the \verb|search()| method, you call it in the \verb|input| event
 listener as follows:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=JavaScript]
     searchTermElem.addEventListener('input', function (event) {
         search(event.target.value);
     });
@@ -295,39 +348,41 @@ listener as follows:
 \noindent
 The following shows the complete \verb|app.js| file:
 
-\begin{lstlisting}
-    const searchTermElem = document.querySelector('#searchTerm');
-    const searchResultElem = document.querySelector('#searchResult');
+\begin{lstlisting}[language=JavaScript]
+const searchTermElem = document.querySelector('#searchTerm');
+const searchResultElem = document.querySelector('#searchResult');
 
-    searchTermElem.select();
+searchTermElem.select();
 
-    searchTermElem.addEventListener('input', function (event) {
-        search(event.target.value);
-    });
+searchTermElem.addEventListener('input', function (event) {
+    search(event.target.value);
+});
 
-    const search = async (searchTerm) => {
-        try {
-            const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
-            const response = await fetch(url);
-            const searchResults = await response.json();
+const search = async (searchTerm) => {
+    try {
+        const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
+        const response = await fetch(url);
+        const searchResults = await response.json();
 
-            // show the search result in the console
-            console.log({
-                'term': searchTerm,
-                'results': searchResults.query.search
-            });
+        // show the search result in the console
+        console.log({
+            'term': searchTerm,
+            'results': searchResults.query.search
+        });
 
-        } catch (error) {
-            console.log(error);
-        }
+    } catch (error) {
+        console.log(error);
     }
+}
 \end{lstlisting}
 
 \noindent
 Now, if you open the \verb|index.html| file and type the \verb|debounce| keyword in
 the input element, you'll see the following results in the Console:
-
-![](uploads/2020/09/JavaScript-Debounce-Function-too-many-requests.png)
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{JavaScript-Debounce-Function-too-many-requests.png}
+\end{figure}
 
 \noindent
 The output indicates that the \verb|search()| function executes for every
@@ -351,36 +406,36 @@ to execute the \verb|search()| function after a period of time.
 In case the users pause or stop typing, let the timer to execute the
 scheduled function to search.
 \end{itemize}
-
+\newpage
 \noindent
 The following shows the new version of the \verb|search()| function:
 
-\begin{lstlisting}
-    let timeoutId;
+\begin{lstlisting}[language=JavaScript]
+let timeoutId;
 
-    const search = (searchTerm) => {
-        // reset the previous timer
-        if (timeoutId) {
-            clearTimeout(timeoutId);
+const search = (searchTerm) => {
+    // reset the previous timer
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+
+    // set up a new timer
+    timeoutId = setTimeout(async () => {
+        try {
+            const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
+            const response = await fetch(url);
+            const searchResults = await response.json();
+
+            // show the search result in the console
+            console.log({
+                'term': searchTerm,
+                'results': searchResults.query.search
+            });
+        } catch (error) {
+            console.log(error);
         }
-
-        // set up a new timer
-        timeoutId = setTimeout(async () => {
-            try {
-                const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
-                const response = await fetch(url);
-                const searchResults = await response.json();
-
-                // show the search result in the console
-                console.log({
-                    'term': searchTerm,
-                    'results': searchResults.query.search
-                });
-            } catch (error) {
-                console.log(error);
-            }
-        }, 500);
-    };
+    }, 500);
+};
 \end{lstlisting}
 
 \noindent
@@ -415,56 +470,56 @@ times a function gets called.
 The \verb|debounce()| function needs to accept a function (\verb|fn|), limits the
 number of calls to it, and returns a function:
 
-\begin{lstlisting}
-    const debounce = (fn) => {
-       return (arg) => {
-          // logic to limit the number of call fn
-          fn(arg);
-       };
-    };
+\begin{lstlisting}[language=JavaScript]
+const debounce = (fn) => {
+   return (arg) => {
+      // logic to limit the number of call fn
+      fn(arg);
+   };
+};
 \end{lstlisting}
 
 \noindent
 The following uses the \verb|clearTimeout()| and \verb|setTimeout()| functions
 to debounce the fn function:
 
-\begin{lstlisting}
-    const debounce = (fn) => {
-        let timeoutId;
+\begin{lstlisting}[language=JavaScript]
+const debounce = (fn) => {
+    let timeoutId;
 
-        return (arg) => {
-            // cancel the previous timer
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-            // setup a new timer
-            timeoutId = setTimeout(() => {
-                fn(arg);
-            }, 500);
-        };
+    return (arg) => {
+        // cancel the previous timer
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // setup a new timer
+        timeoutId = setTimeout(() => {
+            fn(arg);
+        }, 500);
     };
+};
 \end{lstlisting}
 
 \noindent
 Typically, the \verb|fn| function will accept more than one argument.
 To invoke the \verb|fn| function with a list of arguments,
 you use the \verb|apply()| method:
+\newpage
+\begin{lstlisting}[language=JavaScript]
+const debounce = (fn, delay=500) => {
+    let timeoutId;
 
-\begin{lstlisting}
-    const debounce = (fn, delay=500) => {
-        let timeoutId;
-
-        return (...args) => {
-            // cancel the previous timer
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-            // setup a new timer
-            timeoutId = setTimeout(() => {
-                fn.apply(null, args);
-            }, delay);
-        };
+    return (...args) => {
+        // cancel the previous timer
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // setup a new timer
+        timeoutId = setTimeout(() => {
+            fn.apply(null, args);
+        }, delay);
     };
+};
 \end{lstlisting}
 
 \noindent
@@ -480,30 +535,28 @@ of the \verb|fn()| function into an array \verb|args|.
 \item Third, the \verb|fn.apply(null, args)| executes the \verb|fn()| function with
 the arguments specified in the \verb|args| array.
 \end{itemize}
-
-
 \addcontentsline{toc}{section}{Use the debounce function}
 \section*{Use the debounce function}
 
 The following removes the debouncing logic from the \verb|search()| function
 and use the \verb|debounce()| function instead:
+\newpage
+\begin{lstlisting}[language=JavaScript]
+const search = debounce(async (searchTerm) => {
+    try {
+        const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
+        const response = await fetch(url);
+        const searchResults = await response.json();
 
-\begin{lstlisting}
-    const search = debounce(async (searchTerm) => {
-        try {
-            const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
-            const response = await fetch(url);
-            const searchResults = await response.json();
-
-            // show the search result in the console
-            console.log({
-                'term': searchTerm,
-                'results': searchResults.query.search
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    });
+        // show the search result in the console
+        console.log({
+            'term': searchTerm,
+            'results': searchResults.query.search
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
 \end{lstlisting}
 
 \addcontentsline{toc}{section}{Convert the search results to HTML}
@@ -523,12 +576,12 @@ before rendering them.
 \noindent
 The following utility function strips the HTML tags from a string:
 
-\begin{lstlisting}
-    const stripHtml = (html) => {
-        let div = document.createElement('div');
-        div.textContent = html;
-        return div.textContent;
-    };
+\begin{lstlisting}[language=JavaScript]
+const stripHtml = (html) => {
+    let div = document.createElement('div');
+    div.textContent = html;
+    return div.textContent;
+};
 \end{lstlisting}
 
 The \verb|stripHtml()| function accepts an HTML string. It creates a
@@ -551,11 +604,11 @@ This \verb|highlight()| function highlights all the occurrences of the
 \verb|keyword| in the \verb|str| by wrapping each occurrence of the keyword in
 a \verb|<span>| tag with the \verb|highlight| class:
 
-\begin{lstlisting}
-    const highlight = (str, keyword, className = "highlight") => {
-        const hl = `<span class="${className}">${keyword}</span>`;
-        return str.replace(new RegExp(keyword, 'gi'), hl);
-    };
+\begin{lstlisting}[language=JavaScript]
+const highlight = (str, keyword, className = "highlight") => {
+    const hl = `<span class="${className}">${keyword}</span>`;
+    return str.replace(new RegExp(keyword, 'gi'), hl);
+};
 \end{lstlisting}
 
 \noindent
@@ -568,27 +621,26 @@ occurrences of the keyword by the \verb|<span>| element.
 The following \verb|generateSearchResultHTML()| function converts the search
 results to HTML:
 
-\begin{lstlisting}
-    const generateHTML= (results, searchTerm) => {
-        return results
-            .map(result => {
-                const title = highlight(stripHtml(result.title), searchTerm);
-                const snippet = highlight(stripHtml(result.snippet), searchTerm);
+\begin{lstlisting}[language=JavaScript]
+const generateHTML= (results, searchTerm) => {
+    return results
+        .map(result => {
+            const title = highlight(stripHtml(result.title), searchTerm);
+            const snippet = highlight(stripHtml(result.snippet), searchTerm);
 
-                return $<article>
-                    <a href="https://en.wikipedia.org/?curid=${result.pageid}">
-                        <h2>${title}</h2>
-                    </a>
-                    <div class="summary">${snippet}...</div>
-                </article>$;
-            })
-            .join('');
-    }
+            return $<article>
+                <a href="https://en.wikipedia.org/?curid=${result.pageid}">
+                    <h2>${title}</h2>
+                </a>
+                <div class="summary">${snippet}...</div>
+            </article>$;
+        })
+        .join('');
+}
 \end{lstlisting}
-
+\newpage
 \noindent
 How it works.
-
 \begin{itemize}
 \item First, use the \verb|map()| method to return the HTML representation of each
 search result and the \verb|join()| method to join search results
@@ -603,32 +655,32 @@ Change the \verb|search()| method that uses the \verb|generateSearchResultHTML()
 function and append its result to the \verb|searchResultElem|.
 Also, reset the search result if the search term is empty:
 
-\begin{lstlisting}
-    const search = debounce(async (searchTerm) => {
+\begin{lstlisting}[language=JavaScript]
+const search = debounce(async (searchTerm) => {
 
-        // if the search term is removed, 
+    // if the search term is removed, 
+    // reset the search result
+    if (!searchTerm) {
         // reset the search result
-        if (!searchTerm) {
-            // reset the search result
-            searchResultElem.innerHTML = '';
-            return;
-        }
+        searchResultElem.innerHTML = '';
+        return;
+    }
 
-        try {
-            // make an API request
-            const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
-            const response = await fetch(url);
-            const searchResults = await response.json();
+    try {
+        // make an API request
+        const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchTerm}`;
+        const response = await fetch(url);
+        const searchResults = await response.json();
 
-            // render search result
-            const searchResultHtml = generateSearchResultHTML(searchResults.query.search, searchTerm);
+        // render search result
+        const searchResultHtml = generateSearchResultHTML(searchResults.query.search, searchTerm);
 
-            // add the search result to the searchResultElem
-            searchResultElem.innerHTML = searchResultHtml;
-        } catch (error) {
-            console.log(error);
-        }
-    });
+        // add the search result to the searchResultElem
+        searchResultElem.innerHTML = searchResultHtml;
+    } catch (error) {
+        console.log(error);
+    }
+});
 \end{lstlisting}
 
 \noindent
@@ -639,7 +691,6 @@ working application.
 \section*{Summary}
 
 In this tutorial, you've learned the following key points:
-
 \begin{itemize}
 \item Use the \verb|fetch()| API to make HTTP \verb|GET| requests.
 \item Use the \verb|async/await| keywords to make the asynchronous code
@@ -647,9 +698,11 @@ looks cleaner.
 \item Understand the debouncing programming technique and develop a
 reusable JavaScript \verb|debounce()| function.
 \end{itemize}
+\newpage
 
+\noindent
 \addcontentsline{toc}{section}{\huge JavaScript insertAfter}
-\section*{\huge JavaScript insertAfter}
+{\huge JavaScript insertAfter}
 
 \begin{displayquote}
 \textbf{Summary}: in this tutorial, you will learn how to insert a
@@ -665,50 +718,49 @@ However, it hasn't supported the \verb|insertAfter()| method yet.
 \noindent
 To insert a new node after an existing node as a child node,
 you can use the following approach:
-
 \begin{itemize}
 \item First, select the next sibling node of the existing node.
 \item Then, select the parent node of the existing node and call
 the \verb|insertBefore()| method on the parent node to insert a new node
 before that immediate sibling node.
 \end{itemize}
-
 \noindent
 The following \verb|insertAfter()| function illustrates the logic:
 
-\begin{lstlisting}
-    function insertAfter(newNode, existingNode) {
-        existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-    }
+\begin{lstlisting}[language=JavaScript]
+function insertAfter(newNode, existingNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
 \end{lstlisting}
 
 \noindent
 Suppose that you have the following list of items:
 
-\begin{lstlisting}
-    <ul id="menu">
-        <li>Home</li>   
-        <li>About</li>
-        <li>Contact</li>
-    </ul>
+\begin{lstlisting}[language=HTML]
+<ul id="menu">
+    <li>Home</li>   
+    <li>About</li>
+    <li>Contact</li>
+</ul>
 \end{lstlisting}
 
 \noindent
 The following snippet inserts a new node after the first list item:
 
-\begin{lstlisting}
-    let menu = document.getElementById('menu');
-    // create a new li node
-    let li = document.createElement('li');
-    li.textContent = 'Services';
+\begin{lstlisting}[language=JavaScript]
+let menu = document.getElementById('menu');
+// create a new li node
+let li = document.createElement('li');
+li.textContent = 'Services';
 
-    // insert a new node after the first list item
-    menu.insertBefore(li, menu.firstElementChild.nextSibling);
+// insert a new node after the first list item
+menu.insertBefore(li, menu.firstElementChild.nextSibling);
 \end{lstlisting}
+
+\newpage
 
 \noindent
 How it works:
-
 \begin{itemize}
 \item First, select the \verb|ul| element by its id (\verb|menu|) using
 the \verb|getElementById()| method.
@@ -716,49 +768,48 @@ the \verb|getElementById()| method.
 \item Third, use the \verb|insertBefore()| method to insert the list item element
 before the next sibling of the first list item element.
 \end{itemize}
-
 Put it all together.
 
-\begin{lstlisting}
-    <!DOCTYPE html>
-    <html>
+\begin{lstlisting}[language=HTML]
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <meta charset="utf-8">
-        <title>JavaScript insertAfter() Demo</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <title>JavaScript insertAfter() Demo</title>
+</head>
 
-    <body>
-        <ul id="menu">
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-        </ul>
-        <script>
-            let menu = document.getElementById('menu');
-            // create a new li node
-            let li = document.createElement('li');
-            li.textContent = 'Services';
+<body>
+    <ul id="menu">
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+    </ul>
+    <script>
+        let menu = document.getElementById('menu');
+        // create a new li node
+        let li = document.createElement('li');
+        li.textContent = 'Services';
 
-            // insert a new node after the first list item
-            menu.insertBefore(li, menu.firstElementChild.nextSibling);
-        </script>
-    </body>
+        // insert a new node after the first list item
+        menu.insertBefore(li, menu.firstElementChild.nextSibling);
+    </script>
+</body>
 
-    </html>
+</html>
 \end{lstlisting}
 
 \addcontentsline{toc}{section}{Summary}
 \section*{Summary}
-
 \begin{itemize}
 \item JavaScript DOM hasn't supported the \verb|insertAfter()| method yet.
 \item Use the \verb|insertBefore()| method and the \verb|nextSibling| property
 to insert a new before an existing node as a child of a parent node.
 \end{itemize}
-
+\newpage
+\noindent
 \addcontentsline{toc}{section}{\huge JavaScript Infinite Scroll}
-\section*{\huge JavaScript Infinite Scroll}
+{\huge JavaScript Infinite Scroll}
 
 \begin{displayquote}
 \textbf{Summary}: in this tutorial, you'll learn how to implement the
@@ -771,7 +822,10 @@ JavaScript infinite scroll feature.
 The following picture illustrates the web application that
 you're going to build:
 
-![](uploads/2020/09/JavaScript-Infinite-Scroll-Example.png)
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{JavaScript-Infinite-Scroll-Example}
+\end{figure}
 
 \noindent
 The page will display a list of quotes that come from an API.
@@ -788,7 +842,7 @@ more quotes and append them to the current list.
 The URL of the API that you're going to use is as follows:
 
 \begin{lstlisting}
-    https://api.javascripttutorial.net/v1/quotes/?page=1&limit=10
+https://api.javascripttutorial.net/v1/quotes/?page=1&limit=10
 \end{lstlisting}
 
 \noindent
@@ -800,10 +854,13 @@ strings allow you to paginate the quotes from the server.
 The quotes are divided into the pages determined by the \verb|page| query string.
 And each page has a number of quotes specified by the \verb|limit| parameter.
 
-![](uploads/2020/09/JavaScript-Infinite-Scroll-API.png)
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{JavaScript-Infinite-Scroll-API}
+\end{figure}
 
 \noindent
-\href{https://www.javascripttutorial.net/sample/dom/infinite-scroll/}{Click here to see the final web application that uses the JavaScript infinite scroll feature}.
+\href{https://www.javascripttutorial.net/sample/dom/infinite-scroll/}{Click here to see the final web application that uses the JavaScript infinite scroll feature.}
 
 \addcontentsline{toc}{section}{Create a project structure}
 \section*{Create a project structure}
@@ -820,42 +877,46 @@ Second, create the \verb|style.css| in the css folder and \verb|app.js| in the j
 Third, create a new HTML file \verb|index.html| in the \verb|infinite-scroll| folder.
 \newline
 
+\newpage
 \noindent
 The final project folder structure will look like this:
 
-![](uploads/2020/09/JavaScript-Infinite-Scroll-Project-Structure.png)
-
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{JavaScript-Infinite-Scroll-Project-Structure}
+\end{figure}
+\newpage
 \addcontentsline{toc}{section}{Add code to the index.html file}
 \section*{Add code to the index.html file}
 
 Open the \verb|index.html| and add the following code to it:
 
-\begin{lstlisting}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>JavaScript Infinite Scroll - Quotes</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
+\begin{lstlisting}[language=HTML]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Infinite Scroll - Quotes</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-        <div class="container">
-            <h1>Programming Quotes</h1>
+    <div class="container">
+        <h1>Programming Quotes</h1>
 
-            <div class="quotes">
-            </div>
-
-            <div class="loader">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+        <div class="quotes">
         </div>
-        <script src="js/app.js"></script>
-    </body>
-    </html>
+
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
 \end{lstlisting}
 
 \noindent
@@ -866,7 +927,6 @@ and \verb|app.js| in the body section.
 \noindent
 The body section has a \verb|div| with the class name \verb|container|.
 The container element has four child elements:
-
 \begin{itemize}
 \item A heading one (h1) that shows the page heading.
 \item A \verb|div| with the class \verb|quotes| that will be the parent element of
@@ -874,33 +934,32 @@ all the quotes.
 \item A loader that displays the loading indicator. By default,
 the loading indicator is invisible.
 \end{itemize}
-
 \addcontentsline{toc}{section}{Making the app.js}
 \section*{Making the app.js}
 
 The following uses the \verb|querySelector()| to select the div with
 class \verb|quotes| and the \verb|loader|.
 
-\begin{lstlisting}
-    const quotesEl = document.querySelector('.quotes');
-    const loader = document.querySelector('.loader');
+\begin{lstlisting}[language=JavaScript]
+const quotesEl = document.querySelector('.quotes');
+const loader = document.querySelector('.loader');
 \end{lstlisting}
 
 \addcontentsline{toc}{section}{The getQuotes() function}
 \section*{The getQuotes() function}
 
 The following \verb|getQuotes()| function calls the API and return the quotes:
-
-\begin{lstlisting}
-    const getQuotes = async (page, limit) => {
-        const API_URL = $https://api.javascripttutorial.net/v1/quotes/?page=${page}&limit=${limit}$;
-        const response = await fetch(API_URL);
-        // handle 404
-        if (!response.ok) {
-            throw new Error($An error occurred: ${response.status}$);
-        }
-        return await response.json();
+\newpage
+\begin{lstlisting}[language=JavaScript]
+const getQuotes = async (page, limit) => {
+    const API_URL = $https://api.javascripttutorial.net/v1/quotes/?page=${page}&limit=${limit}$;
+    const response = await fetch(API_URL);
+    // handle 404
+    if (!response.ok) {
+        throw new Error($An error occurred: ${response.status}$);
     }
+    return await response.json();
+}
 \end{lstlisting}
 
 \noindent
@@ -928,23 +987,23 @@ an \verb|async| function.
 The following defines the \verb|showQuotes()| function that generates
 the \verb|<blockquote>| elements from the \verb|quotes| array and appends them
 to the \verb|quotes| element:
+\newpage
+\begin{lstlisting}[language=JavaScript]
+// show the quotes
+const showQuotes = (quotes) => {
+    quotes.forEach(quote => {
+        const quoteEl = document.createElement('blockquote');
+        quoteEl.classList.add('quote');
 
-\begin{lstlisting}
-    // show the quotes
-    const showQuotes = (quotes) => {
-        quotes.forEach(quote => {
-            const quoteEl = document.createElement('blockquote');
-            quoteEl.classList.add('quote');
+        quoteEl.innerHTML = $
+            <span>${quote.id})</span>
+            ${quote.quote}
+            <footer>${quote.author}</footer>
+        $;
 
-            quoteEl.innerHTML = $
-                <span>${quote.id})</span>
-                ${quote.quote}
-                <footer>${quote.author}</footer>
-            $;
-
-            quotesEl.appendChild(quoteEl);
-        });
-    };
+        quotesEl.appendChild(quoteEl);
+    });
+};
 \end{lstlisting}
 
 \noindent
@@ -960,9 +1019,9 @@ the \verb|quotes| array.
 For each quote object, it creates the \verb|<blockquote>| element with
 the \verb|quote| class:
 
-\begin{lstlisting}
-    <blockquote class="quote">
-    </blockquote>
+\begin{lstlisting}[language=HTML]
+<blockquote class="quote">
+</blockquote>
 \end{lstlisting}
 
 \noindent
@@ -973,12 +1032,12 @@ the template literal syntax. It adds the HTML to the \verb|<blockquote>| element
 \noindent
 The following shows an example of the generated \verb|<blockquote>| element:
 
-\begin{lstlisting}
-    <blockquote class="quote">
-       <span>1)</span>
-          Talk is cheap. Show me the code.
-        <footer>Linus Torvalds</footer>
-    </blockquote>
+\begin{lstlisting}[language=HTML]
+<blockquote class="quote">
+   <span>1)</span>
+      Talk is cheap. Show me the code.
+    <footer>Linus Torvalds</footer>
+</blockquote>
 \end{lstlisting}
 
 \noindent
@@ -991,14 +1050,14 @@ using the \verb|appendChild()| method.
 
 The following defines two functions that show and hide the loading indicator element:
 
-\begin{lstlisting}
-    const hideLoader = () => {
-        loader.classList.remove('show');
-    };
+\begin{lstlisting}[language=JavaScript]
+const hideLoader = () => {
+    loader.classList.remove('show');
+};
 
-    const showLoader = () => {
-        loader.classList.add('show');
-    };
+const showLoader = () => {
+    loader.classList.add('show');
+};
 \end{lstlisting}
 
 \noindent
@@ -1017,8 +1076,8 @@ you add the \verb|show| class to its class list.
 
 The following declares the currentPage variable and initialize it to one:
 
-\begin{lstlisting}
-    let currentPage = 1;
+\begin{lstlisting}[language=JavaScript]
+let currentPage = 1;
 \end{lstlisting}
 
 \noindent
@@ -1031,40 +1090,37 @@ increase the \verb|currentPage| variable by one.
 To specify the number of quotes that you want to fetch at a time,
 you can use a constant like this:
 
-\begin{lstlisting}
-    const limit = 10;
+\begin{lstlisting}[language=JavaScript]
+const limit = 10;
 \end{lstlisting}
 
 \noindent
 The following \verb|total| variable stores the total of quotes
 returned from the API:
 
-\begin{lstlisting}
-    let total = 0;
+\begin{lstlisting}[language=JavaScript]
+let total = 0;
 \end{lstlisting}
 
 \addcontentsline{toc}{section}{The hasMoreQuotes() function}
 \section*{The hasMoreQuotes() function}
 
 The following \verb|hasMoreQuotes()| function returns \verb|true| if:
-
 \begin{itemize}
 \item It's the first fetch (\verb|total === 0|)
 \item Or there are more quotes to fetch from the API (\verb|startIndex < total|)
 \end{itemize}
-
-\begin{lstlisting}
-    const hasMoreQuotes = (page, limit, total) => {
-        const startIndex = (page - 1) * limit + 1;
-        return total === 0 || startIndex < total;
-    };
+\begin{lstlisting}[language=JavaScript]
+const hasMoreQuotes = (page, limit, total) => {
+    const startIndex = (page - 1) * limit + 1;
+    return total === 0 || startIndex < total;
+};
 \end{lstlisting}
 
 \addcontentsline{toc}{section}{The loadQuotes() function}
 \section*{The loadQuotes() function}
 
 The following defines a function that performs four actions:
-
 \begin{itemize}
 \item Show the loading indicator.
 \item Get the quotes from the API by calling the \verb|getQuotes()| function
@@ -1072,12 +1128,48 @@ if there are more quotes to fetch.
 \item Show the quotes on the page.
 \item Hide the loading indicator.
 \end{itemize}
+\newpage
+\begin{lstlisting}[language=JavaScript]
+// load quotes
+const loadQuotes = async (page, limit) => {
+    // show the loader
+    showLoader();
+    try {
+        // if having more quotes to fetch
+        if (hasMoreQuotes(page, limit, total)) {
+            // call the API to get quotes
+            const response = await getQuotes(page, limit);
+            // show quotes
+            showQuotes(response.data);
+            // update the total
+            total = response.total;
+        }
+    } catch (error) {
+        console.log(error.message);
+    } finally {
+        hideLoader();
+    }
+};
+\end{lstlisting}
 
-\begin{lstlisting}
-    // load quotes
-    const loadQuotes = async (page, limit) => {
-        // show the loader
-        showLoader();
+\noindent
+If the \verb|getQuotes()| function executes very fast,
+you won't see the loading indicator.
+\newpage
+
+\noindent
+To make sure that the loading indicator always showing,
+you can use the \verb|setTimeout()| function:
+
+\begin{lstlisting}[language=JavaScript]
+// load quotes
+const loadQuotes = async (page, limit) => {
+
+    // show the loader
+    showLoader();
+
+    // 0.5 second later
+    setTimeout(async () => {
         try {
             // if having more quotes to fetch
             if (hasMoreQuotes(page, limit, total)) {
@@ -1093,18 +1185,117 @@ if there are more quotes to fetch.
         } finally {
             hideLoader();
         }
-    };
+    }, 500);
+
+};
 \end{lstlisting}
 
-If the \verb|getQuotes()| function executes very fast,
-you won't see the loading indicator.
+\noindent
+By adding the \verb|setTimeout()| function, the loading indicator will
+show for at least a half-second. And you can tweak the delay by
+changing the second argument of the \verb|setTimeout()| function.
+
+\addcontentsline{toc}{section}{Attach the scroll event}
+\section*{Attach the scroll event}
+
+To load more quotes when users scroll to the bottom of the page,
+you need to attach a scroll event handler.
 \newline
 
 \noindent
-To make sure that the loading indicator always showing,
-you can use the \verb|setTimeout()| function:
+The scroll event handler will call the \verb|loadQuotes()| function
+if the following conditions are met:
+\begin{itemize}
+\item First, the scroll position is at the bottom of the page.
+\item Second, there are more quotes to fetch.
+\end{itemize}
+The scroll event handler will also increase the \verb|currentPage|
+variable before loading the next quotes.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=JavaScript]
+window.addEventListener('scroll', () => {
+    const {
+        scrollTop,
+        scrollHeight,
+        clientHeight
+    } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 5 &&
+        hasMoreQuotes(currentPage, limit, total)) {
+        currentPage++;
+        loadQuotes(currentPage, limit);
+    }
+}, {
+    passive: true
+});
+\end{lstlisting}
+
+\addcontentsline{toc}{section}{Initialize the page}
+\section*{Initialize the page}
+
+When the page loads for the first time, you need to call the
+\verb|loadQuotes()| function to load the first batch of quotes:
+
+\begin{lstlisting}[language=JavaScript]
+loadQuotes(currentPage, limit);
+\end{lstlisting}
+
+\addcontentsline{toc}{section}{Wrap app.js code in an IIFE}
+\section*{Wrap app.js code in an IIFE}
+
+To avoid the conflict of variables and functions that you have defined,
+you can wrap the whole code in the \verb|app.js| file in an IIFE.
+\newpage
+
+\noindent
+The final \verb|app.js| will look like this:
+
+\begin{lstlisting}[language=JavaScript]
+(function () {
+
+    const quotesEl = document.querySelector('.quotes');
+    const loaderEl = document.querySelector('.loader');
+
+    // get the quotes from API
+    const getQuotes = async (page, limit) => {
+        const API_URL = `https://api.javascripttutorial.net/v1/quotes/?page=${page}&limit=${limit}`;
+        const response = await fetch(API_URL);
+        // handle 404
+        if (!response.ok) {
+            throw new Error(`An error occurred: ${response.status}`);
+        }
+        return await response.json();
+    }
+
+    // show the quotes
+    const showQuotes = (quotes) => {
+        quotes.forEach(quote => {
+            const quoteEl = document.createElement('blockquote');
+            quoteEl.classList.add('quote');
+
+            quoteEl.innerHTML = $
+            <span>${quote.id})</span>
+            ${quote.quote}
+            <footer>${quote.author}</footer>
+        $;
+
+            quotesEl.appendChild(quoteEl);
+        });
+    };
+
+    const hideLoader = () => {
+        loaderEl.classList.remove('show');
+    };
+
+    const showLoader = () => {
+        loaderEl.classList.add('show');
+    };
+
+    const hasMoreQuotes = (page, limit, total) => {
+        const startIndex = (page - 1) * limit + 1;
+        return total === 0 || startIndex < total;
+    };
+
     // load quotes
     const loadQuotes = async (page, limit) => {
 
@@ -1131,33 +1322,13 @@ you can use the \verb|setTimeout()| function:
         }, 500);
 
     };
-\end{lstlisting}
 
-\noindent
-By adding the \verb|setTimeout()| function, the loading indicator will
-show for at least a half-second. And you can tweak the delay by
-changing the second argument of the \verb|setTimeout()| function.
+    // control variables
+    let currentPage = 1;
+    const limit = 10;
+    let total = 0;
 
-\addcontentsline{toc}{section}{Attach the scroll event}
-\section*{Attach the scroll event}
 
-To load more quotes when users scroll to the bottom of the page,
-you need to attach a scroll event handler.
-\newline
-
-\noindent
-The scroll event handler will call the \verb|loadQuotes()| function
-if the following conditions are met:
-
-\begin{itemize}
-\item First, the scroll position is at the bottom of the page.
-\item Second, there are more quotes to fetch.
-\end{itemize}
-
-The scroll event handler will also increase the \verb|currentPage|
-variable before loading the next quotes.
-
-\begin{lstlisting}
     window.addEventListener('scroll', () => {
         const {
             scrollTop,
@@ -1173,127 +1344,11 @@ variable before loading the next quotes.
     }, {
         passive: true
     });
-\end{lstlisting}
 
-\addcontentsline{toc}{section}{Initialize the page}
-\section*{Initialize the page}
-
-When the page loads for the first time, you need to call the
-\verb|loadQuotes()| function to load the first batch of quotes:
-
-\begin{lstlisting}
+    // initialize
     loadQuotes(currentPage, limit);
-\end{lstlisting}
 
-\addcontentsline{toc}{section}{Wrap app.js code in an IIFE}
-\section*{Wrap app.js code in an IIFE}
-
-To avoid the conflict of variables and functions that you have defined,
-you can wrap the whole code in the \verb|app.js| file in an IIFE.
-\newline
-
-\noindent
-The final \verb|app.js| will look like this:
-
-\begin{lstlisting}
-    (function () {
-
-        const quotesEl = document.querySelector('.quotes');
-        const loaderEl = document.querySelector('.loader');
-
-        // get the quotes from API
-        const getQuotes = async (page, limit) => {
-            const API_URL = `https://api.javascripttutorial.net/v1/quotes/?page=${page}&limit=${limit}`;
-            const response = await fetch(API_URL);
-            // handle 404
-            if (!response.ok) {
-                throw new Error(`An error occurred: ${response.status}`);
-            }
-            return await response.json();
-        }
-
-        // show the quotes
-        const showQuotes = (quotes) => {
-            quotes.forEach(quote => {
-                const quoteEl = document.createElement('blockquote');
-                quoteEl.classList.add('quote');
-
-                quoteEl.innerHTML = $
-                <span>${quote.id})</span>
-                ${quote.quote}
-                <footer>${quote.author}</footer>
-            $;
-
-                quotesEl.appendChild(quoteEl);
-            });
-        };
-
-        const hideLoader = () => {
-            loaderEl.classList.remove('show');
-        };
-
-        const showLoader = () => {
-            loaderEl.classList.add('show');
-        };
-
-        const hasMoreQuotes = (page, limit, total) => {
-            const startIndex = (page - 1) * limit + 1;
-            return total === 0 || startIndex < total;
-        };
-
-        // load quotes
-        const loadQuotes = async (page, limit) => {
-
-            // show the loader
-            showLoader();
-
-            // 0.5 second later
-            setTimeout(async () => {
-                try {
-                    // if having more quotes to fetch
-                    if (hasMoreQuotes(page, limit, total)) {
-                        // call the API to get quotes
-                        const response = await getQuotes(page, limit);
-                        // show quotes
-                        showQuotes(response.data);
-                        // update the total
-                        total = response.total;
-                    }
-                } catch (error) {
-                    console.log(error.message);
-                } finally {
-                    hideLoader();
-                }
-            }, 500);
-
-        };
-
-        // control variables
-        let currentPage = 1;
-        const limit = 10;
-        let total = 0;
-
-
-        window.addEventListener('scroll', () => {
-            const {
-                scrollTop,
-                scrollHeight,
-                clientHeight
-            } = document.documentElement;
-
-            if (scrollTop + clientHeight >= scrollHeight - 5 &&
-                hasMoreQuotes(currentPage, limit, total)) {
-                currentPage++;
-                loadQuotes(currentPage, limit);
-            }
-        }, {
-            passive: true
-        });
-
-        // initialize
-        loadQuotes(currentPage, limit);
-
-    })();
+})();
 \end{lstlisting}
 
 \noindent
