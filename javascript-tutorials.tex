@@ -3,14 +3,32 @@
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \usepackage{listings}
 \usepackage{csquotes}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 \title{\textbf{Javascript Tutorials}}
 \author{Hoa Thien Vu}
 \date{\today}
 \begin{document}
 
 \maketitle
-
-{\huge Learn JavaScript Debounce Function By Building the Wikipedia Search App}
+\newpage
+\tableofcontents
+\cleardoublepage
+\newpage
+\noindent
+\addcontentsline{toc}{section}{\huge The Wikipedia Search App}
+\section*{\huge Learn JavaScript Debounce Function By Building the Wikipedia Search App}
 
 \begin{displayquote}
 \textbf{Summary}: in this tutorial, you'll learn about JavaScript debounce 
@@ -21,6 +39,7 @@ function and how to use it to improve application performance.
 To understand the debounce function, you're going to build a Wikipedia
 Search application using the debouncing programming technique.
 
+\addcontentsline{toc}{section}{Create the project folder structure}
 \section*{Create the project folder structure}
 
 First, create a new folder called \verb|wikipedia-search| that will store
@@ -37,7 +56,10 @@ images files accordingly.
 Third, create the \verb|style.css| in the \verb|css| folder and the \verb|app.js| in
 the \verb|js| Also, download the following image and copy it to the \verb|img|
 folder. You'll use the logo to make the UI for the app.
-
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\textwidth]{wikipedia-logo.png}
+% \end{figure}
 ![](uploads/2020/09/wikipedia-logo.png)
 
 \noindent
@@ -49,6 +71,7 @@ The project tructure will look like the following:
 
 ![](uploads/2020/09/JavaScript-Debounce-Function-Project-Structure.png)
 
+\addcontentsline{toc}{section}{Build the HTML page}
 \section*{Build the HTML page}
 
 Open the \verb|index.html| file and add the following code:
@@ -76,20 +99,24 @@ Open the \verb|index.html| file and add the following code:
 
 In this HTML file:
 
-* First, link to the \verb|style.css| file in the \verb|<head>| section.
-* Second, add a \verb|<script>| tag whose \verb|src| links to the \verb|app.js| file
+\begin{itemize}
+\item First, link to the \verb|style.css| file in the \verb|<head>| section.
+\item Second, add a \verb|<script>| tag whose \verb|src| links to the \verb|app.js| file
 and place it right before the \verb|</body>| tag.
-* Third, add two sections to the body of the HTML page.
+\item Third, add two sections to the body of the HTML page.
 The first section is the header that shows the Wikipedia logo, the
 heading, and the search box. The second section includes the \verb|<main>|
 tag that will display the search result.
+\end{itemize}
 
+\addcontentsline{toc}{section}{Copy the CSS code}
 \section*{Copy the CSS code}
 
-Navigate to the [style.css](https://www.javascripttutorial.net/sample/dom/wikipedia-search/css/style.css) file, copy its code, and paste it into the
+Navigate to the \href{https://www.javascripttutorial.net/sample/dom/wikipedia-search/css/style.css}{style.css} file, copy its code, and paste it into the
 style.css file in the css folder. When you open the index.html file,
-you should see something like the [following page](https://www.javascripttutorial.net/sample/dom/wikipedia-search/).
+you should see something like the \href{https://www.javascripttutorial.net/sample/dom/wikipedia-search/}{following page}.
 
+\addcontentsline{toc}{section}{Handle input events}
 \section*{Handle input events}
 
 First, select the \verb|<input>| and search result elements using the
@@ -132,6 +159,7 @@ For example, when you type the \verb|debounce| in the \verb|<input>| element:
 
 ![](uploads/2020/09/JavaScript-Debounce-Function-Input-event-console.png)
 
+\addcontentsline{toc}{section}{Fetch search results using Wikipedia API}
 \section*{Fetch search results using Wikipedia API}
 
 The Wikipedia API is quite simple. It doesn't require an API key.
@@ -299,11 +327,13 @@ pause or stop typing for a period of time e.g., a half-second.
 \noindent
 To do so, you can use the \verb|setTimeout()| and \verb|clearTimeout()| function:
 
-* When users type a character, use the \verb|setTimeout()| function to schedule
+\begin{itemize}
+\item When users type a character, use the \verb|setTimeout()| function to schedule
 to execute the \verb|search()| function after a period of time.
-* If users keep typing, cancel that timer using the \verb|clearTimeout()| function.
+\item If users keep typing, cancel that timer using the \verb|clearTimeout()| function.
 In case the users pause or stop typing, let the timer to execute the
 scheduled function to search.
+\end{itemize}
 
 \noindent
 The following shows the new version of the \verb|search()| function:
@@ -351,6 +381,7 @@ that the application will make only one API request.
 \noindent
 And this technique is known as \textbf{debouncing}.
 
+\addcontentsline{toc}{section}{What is debouncing}
 \section*{What is debouncing}
 
 If you have a time-consuming task like an API request that fires often,
@@ -361,6 +392,7 @@ it'll impact application performance.
 \textbf{Debouncing} is a programming technique that limits the number of
 times a function gets called.
 
+\addcontentsline{toc}{section}{Develop a reusable debounce function}
 \section*{Develop a reusable debounce function}
 
 The \verb|debounce()| function needs to accept a function (\verb|fn|), limits the
@@ -421,15 +453,19 @@ you use the \verb|apply()| method:
 \noindent
 How it works:
 
-* First, replace the hardcoded number \verb|500| with the \verb|delay| argument so
+\begin{itemize}
+\item First, replace the hardcoded number \verb|500| with the \verb|delay| argument so
 that you can specify the amount of time to wait before executing the \verb|fn|
 function. The default value of the delay is 500 ms.
-* Second, add the \verb|...args| to the returned function. The \verb|...arg|
+\item Second, add the \verb|...args| to the returned function. The \verb|...arg|
 is a rest parameter that allows you to collect all the arguments
 of the \verb|fn()| function into an array \verb|args|.
-* Third, the \verb|fn.apply(null, args)| executes the \verb|fn()| function with
+\item Third, the \verb|fn.apply(null, args)| executes the \verb|fn()| function with
 the arguments specified in the \verb|args| array.
+\end{itemize}
 
+
+\addcontentsline{toc}{section}{Use the debounce function}
 \section*{Use the debounce function}
 
 The following removes the debouncing logic from the \verb|search()| function
@@ -453,11 +489,13 @@ and use the \verb|debounce()| function instead:
     });
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{Convert the search results to HTML}
 \section*{Convert the search results to HTML}
 
 We'll show the title and snippet of every search result in the output.
 Before doing it, we'll need some utility functions:
 
+\addcontentsline{toc}{section}{Strip HTML tags}
 \section*{Strip HTML tags}
 
 The \verb|title| and \verb|snippet| from the search result of the API call may
@@ -485,6 +523,7 @@ Note that this function will only work on web browsers because it
 relies on the web browser's DOM API.
 \end{displayquote}
 
+\addcontentsline{toc}{section}{Highlight the search term}
 \section*{Highlight the search term}
 
 It's more intuitive if the search terms are highlighted in the search result.
@@ -506,6 +545,7 @@ a \verb|<span>| tag with the \verb|highlight| class:
 Note that the function uses the regular expression to replace all
 occurrences of the keyword by the \verb|<span>| element.
 
+\addcontentsline{toc}{section}{Convert the search results to HTML}
 \section*{Convert the search results to HTML}
 
 The following \verb|generateSearchResultHTML()| function converts the search
@@ -532,12 +572,14 @@ results to HTML:
 \noindent
 How it works.
 
-* First, use the \verb|map()| method to return the HTML representation of each
+\begin{itemize}
+\item First, use the \verb|map()| method to return the HTML representation of each
 search result and the \verb|join()| method to join search results
 (in HTML format) into a single HTML string.
-* Second, strip the HTML tags and highlight the search term in
+\item Second, strip the HTML tags and highlight the search term in
 the \verb|title| and \verb|snippet| returned from the API call.
-
+\end{itemize}
+\addcontentsline{toc}{section}{Show the search results}
 \section*{Show the search results}
 
 Change the \verb|search()| method that uses the \verb|generateSearchResultHTML()|
@@ -576,17 +618,21 @@ Also, reset the search result if the search term is empty:
 Now, if you open the index.html in the web browser, you'll see the
 working application.
 
+\addcontentsline{toc}{section}{Summary}
 \section*{Summary}
 
 In this tutorial, you've learned the following key points:
 
-* Use the \verb|fetch()| API to make HTTP \verb|GET| requests.
-* Use the \verb|async/await| keywords to make the asynchronous code
+\begin{itemize}
+\item Use the \verb|fetch()| API to make HTTP \verb|GET| requests.
+\item Use the \verb|async/await| keywords to make the asynchronous code
 looks cleaner.
-* Understand the debouncing programming technique and develop a
+\item Understand the debouncing programming technique and develop a
 reusable JavaScript \verb|debounce()| function.
+\end{itemize}
 
-{\huge JavaScript insertAfter}
+\addcontentsline{toc}{section}{\huge JavaScript insertAfter}
+\section*{\huge JavaScript insertAfter}
 
 \begin{displayquote}
 \textbf{Summary}: in this tutorial, you will learn how to insert a
@@ -603,10 +649,12 @@ However, it hasn't supported the \verb|insertAfter()| method yet.
 To insert a new node after an existing node as a child node,
 you can use the following approach:
 
-* First, select the next sibling node of the existing node.
-* Then, select the parent node of the existing node and call
+\begin{itemize}
+\item First, select the next sibling node of the existing node.
+\item Then, select the parent node of the existing node and call
 the \verb|insertBefore()| method on the parent node to insert a new node
 before that immediate sibling node.
+\end{itemize}
 
 \noindent
 The following \verb|insertAfter()| function illustrates the logic:
@@ -644,11 +692,13 @@ The following snippet inserts a new node after the first list item:
 \noindent
 How it works:
 
-* First, select the \verb|ul| element by its id (\verb|menu|) using
+\begin{itemize}
+\item First, select the \verb|ul| element by its id (\verb|menu|) using
 the \verb|getElementById()| method.
-* Second, create a new list item using the \verb|createElement()| method.
-* Third, use the \verb|insertBefore()| method to insert the list item element
+\item Second, create a new list item using the \verb|createElement()| method.
+\item Third, use the \verb|insertBefore()| method to insert the list item element
 before the next sibling of the first list item element.
+\end{itemize}
 
 Put it all together.
 
@@ -681,19 +731,24 @@ Put it all together.
     </html>
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{Summary}
 \section*{Summary}
 
-* JavaScript DOM hasn't supported the \verb|insertAfter()| method yet.
-* Use the \verb|insertBefore()| method and the \verb|nextSibling| property
+\begin{itemize}
+\item JavaScript DOM hasn't supported the \verb|insertAfter()| method yet.
+\item Use the \verb|insertBefore()| method and the \verb|nextSibling| property
 to insert a new before an existing node as a child of a parent node.
+\end{itemize}
 
-{\huge JavaScript Infinite Scroll}
+\addcontentsline{toc}{section}{\huge JavaScript Infinite Scroll}
+\section*{\huge JavaScript Infinite Scroll}
 
 \begin{displayquote}
 \textbf{Summary}: in this tutorial, you'll learn how to implement the
 JavaScript infinite scroll feature.
 \end{displayquote}
 
+\addcontentsline{toc}{section}{What you're going to build}
 \section*{What you're going to build}
 
 The following picture illustrates the web application that
@@ -731,8 +786,9 @@ And each page has a number of quotes specified by the \verb|limit| parameter.
 ![](uploads/2020/09/JavaScript-Infinite-Scroll-API.png)
 
 \noindent
-[Click here to see the final web application that uses the JavaScript infinite scroll feature.](https://www.javascripttutorial.net/sample/dom/infinite-scroll/)
+\href{https://www.javascripttutorial.net/sample/dom/infinite-scroll/}{Click here to see the final web application that uses the JavaScript infinite scroll feature}.
 
+\addcontentsline{toc}{section}{Create a project structure}
 \section*{Create a project structure}
 
 First, create a new folder called \verb|infinite-scroll|. Inside that folder,
@@ -752,6 +808,7 @@ The final project folder structure will look like this:
 
 ![](uploads/2020/09/JavaScript-Infinite-Scroll-Project-Structure.png)
 
+\addcontentsline{toc}{section}{Add code to the index.html file}
 \section*{Add code to the index.html file}
 
 Open the \verb|index.html| and add the following code to it:
@@ -793,12 +850,15 @@ and \verb|app.js| in the body section.
 The body section has a \verb|div| with the class name \verb|container|.
 The container element has four child elements:
 
-* A heading one (h1) that shows the page heading.
-* A \verb|div| with the class \verb|quotes| that will be the parent element of
+\begin{itemize}
+\item A heading one (h1) that shows the page heading.
+\item A \verb|div| with the class \verb|quotes| that will be the parent element of
 all the quotes.
-* A loader that displays the loading indicator. By default,
+\item A loader that displays the loading indicator. By default,
 the loading indicator is invisible.
+\end{itemize}
 
+\addcontentsline{toc}{section}{Making the app.js}
 \section*{Making the app.js}
 
 The following uses the \verb|querySelector()| to select the div with
@@ -809,6 +869,7 @@ class \verb|quotes| and the \verb|loader|.
     const loader = document.querySelector('.loader');
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{The getQuotes() function}
 \section*{The getQuotes() function}
 
 The following \verb|getQuotes()| function calls the API and return the quotes:
@@ -844,6 +905,7 @@ The \verb|getQuotes()| returns a promise that will resolve to the JSON data.
 Since the \verb|getQuotes()| function use the \verb|await| keyword, it has to be
 an \verb|async| function.
 
+\addcontentsline{toc}{section}{The showQuotes() function}
 \section*{The showQuotes() function}
 
 The following defines the \verb|showQuotes()| function that generates
@@ -907,6 +969,7 @@ At the end of each iteration, the function appends the \verb|<blockquote>|
 element to the child elements of the \verb|quotesEl| element by
 using the \verb|appendChild()| method.
 
+\addcontentsline{toc}{section}{Show/hide loading indicator functions}
 \section*{Show/hide loading indicator functions}
 
 The following defines two functions that show and hide the loading indicator element:
@@ -932,6 +995,7 @@ To hide the loading indicator, you remove the \verb|show| class from the
 loading indicator element. Similarly, to show the loading indicator,
 you add the \verb|show| class to its class list.
 
+\addcontentsline{toc}{section}{Define control variables}
 \section*{Define control variables}
 
 The following declares the currentPage variable and initialize it to one:
@@ -962,12 +1026,15 @@ returned from the API:
     let total = 0;
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{The hasMoreQuotes() function}
 \section*{The hasMoreQuotes() function}
 
 The following \verb|hasMoreQuotes()| function returns \verb|true| if:
 
-* It's the first fetch (\verb|total === 0|)
-* Or there are more quotes to fetch from the API (\verb|startIndex < total|)
+\begin{itemize}
+\item It's the first fetch (\verb|total === 0|)
+\item Or there are more quotes to fetch from the API (\verb|startIndex < total|)
+\end{itemize}
 
 \begin{lstlisting}
     const hasMoreQuotes = (page, limit, total) => {
@@ -976,15 +1043,18 @@ The following \verb|hasMoreQuotes()| function returns \verb|true| if:
     };
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{The loadQuotes() function}
 \section*{The loadQuotes() function}
 
 The following defines a function that performs four actions:
 
-* Show the loading indicator.
-* Get the quotes from the API by calling the \verb|getQuotes()| function
+\begin{itemize}
+\item Show the loading indicator.
+\item Get the quotes from the API by calling the \verb|getQuotes()| function
 if there are more quotes to fetch.
-* Show the quotes on the page.
-* Hide the loading indicator.
+\item Show the quotes on the page.
+\item Hide the loading indicator.
+\end{itemize}
 
 \begin{lstlisting}
     // load quotes
@@ -1051,6 +1121,7 @@ By adding the \verb|setTimeout()| function, the loading indicator will
 show for at least a half-second. And you can tweak the delay by
 changing the second argument of the \verb|setTimeout()| function.
 
+\addcontentsline{toc}{section}{Attach the scroll event}
 \section*{Attach the scroll event}
 
 To load more quotes when users scroll to the bottom of the page,
@@ -1061,8 +1132,10 @@ you need to attach a scroll event handler.
 The scroll event handler will call the \verb|loadQuotes()| function
 if the following conditions are met:
 
-* First, the scroll position is at the bottom of the page.
-* Second, there are more quotes to fetch.
+\begin{itemize}
+\item First, the scroll position is at the bottom of the page.
+\item Second, there are more quotes to fetch.
+\end{itemize}
 
 The scroll event handler will also increase the \verb|currentPage|
 variable before loading the next quotes.
@@ -1085,6 +1158,7 @@ variable before loading the next quotes.
     });
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{Initialize the page}
 \section*{Initialize the page}
 
 When the page loads for the first time, you need to call the
@@ -1094,6 +1168,7 @@ When the page loads for the first time, you need to call the
     loadQuotes(currentPage, limit);
 \end{lstlisting}
 
+\addcontentsline{toc}{section}{Wrap app.js code in an IIFE}
 \section*{Wrap app.js code in an IIFE}
 
 To avoid the conflict of variables and functions that you have defined,
@@ -1205,6 +1280,6 @@ The final \verb|app.js| will look like this:
 \end{lstlisting}
 
 \noindent
-Here is the final version of [the web application](https://www.javascripttutorial.net/sample/dom/infinite-scroll/).
+Here is the final version of \href{https://www.javascripttutorial.net/sample/dom/infinite-scroll/}{the web application}.
 
 \end{document}
