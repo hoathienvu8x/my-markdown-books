@@ -5,6 +5,7 @@
 \usepackage{csquotes}
 \usepackage{hyperref}
 
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -15,6 +16,19 @@
 
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
+
+\usepackage[x11names]{xcolor}
+\usepackage{framed}
+\usepackage{quoting}
+\colorlet{shadecolor}{LavenderBlush2}
+% https://tex.stackexchange.com/a/435632
+\newenvironment{shadedquotation}
+{\begin{shaded*}
+\quoting[leftmargin=0pt, vskip=0pt]
+}
+ {\endquoting
+ \end{shaded*}
+}
 
 \title{\textbf{Javascript Tutorials}}
 \author{Hoa Thien Vu}
@@ -30,10 +44,10 @@
 \addcontentsline{toc}{section}{\huge The Wikipedia Search App}
 \section*{\huge Learn JavaScript Debounce Function By Building the Wikipedia Search App}
 
-\begin{displayquote}
+\begin{shadedquotation}
 \textbf{Summary}: in this tutorial, you'll learn about JavaScript debounce 
 function and how to use it to improve application performance.
-\end{displayquote}
+\end{shadedquotation}
 
 \noindent
 To understand the debounce function, you're going to build a Wikipedia
@@ -75,8 +89,11 @@ The project tructure will look like the following:
 \section*{Build the HTML page}
 
 Open the \verb|index.html| file and add the following code:
-
-\begin{lstlisting}
+% https://tex.stackexchange.com/questions/176966/put-a-grey-background-behind-code-extracts-in-a-latex-document-like-this-site-d
+\begin{lstlisting}[backgroundcolor = \color{lightgray},
+language = HTML,
+xleftmargin = 0cm,
+framexleftmargin = 0em]
     <!DOCTYPE html>
     <html lang="en">
     <head>
